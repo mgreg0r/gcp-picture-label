@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: picture-label-frontend
+spec:
+  selector:
+    matchLabels:
+      app: picture-label-frontend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: picture-label-frontend
+    spec:
+      containers:
+        - name: picture-label-frontend
+          image: gcr.io/gcp-lectures-306517/picture-label-frontend:latest
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/usr/sbin/nginx","-s","quit"]
